@@ -1,0 +1,28 @@
+{
+  "format": "piisa:config:pii-extract-plg-transformers:main:v1",
+  "task_config": {
+    "reuse_engine": true,
+    "aggregation": "max",
+    "models": [
+      {"lang_code": "en", "model": "dslim/bert-base-NER"},
+      {"lang_code": "es", "model": "MMG/xlm-roberta-large-ner-spanish",
+       "aggregation": "simple"}
+    ]
+  },
+  "pii_list": [
+    {
+      "type": "PERSON",
+      "lang": ["en", "es"],
+      "method": "model",
+      "extra": {"map": "PER"}
+    },
+    {
+      "type": "LOCATION",
+      "lang": ["en", "es"],
+      "method": "model",
+      "extra": {"map": "LOC"}
+    }
+  ]
+}
+
+      

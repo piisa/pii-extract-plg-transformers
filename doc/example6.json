@@ -1,0 +1,33 @@
+{
+  "format": "piisa:config:pii-extract-plg-transformers:main:v1",
+  "task_config": {
+    "reuse_engine": true,
+    "aggregation": "max",
+    "models": [
+      {"lang_code": "en", "model": "dslim/bert-base-NER"},
+      {"lang_code": "es", "model": "MMG/xlm-roberta-large-ner-spanish",
+       "aggregation": "average"},
+      {"lang_code": "de", "model": "mschiesser/ner-bert-german"},
+      {"lang_code": "fr", "model": "Jean-Baptiste/camembert-ner",
+       "aggregation": "simple"},
+      {"lang_code": "pt", "model": "Babelscape/wikineural-multilingual-ner"},
+      {"lang_code": "it", "model": "Babelscape/wikineural-multilingual-ner"}
+    ]
+  },
+  "pii_list": [
+    {
+      "type": "PERSON",
+      "lang": ["en", "es", "de", "fr", "pt", "it"],
+      "method": "model",
+      "extra": {"map": "PER"}
+    },
+    {
+      "type": "LOCATION",
+      "lang": ["en", "es", "de", "fr", "pt", "it"],
+      "method": "model",
+      "extra": {"map": "LOC"}
+    }
+  ]
+}
+
+      
