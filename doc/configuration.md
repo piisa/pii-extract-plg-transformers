@@ -61,8 +61,8 @@ packages. If those packages are not installed in the virtualenv, an exception
 will be triggered when trying to use the model. Typically the exception message
 will tell what is missing.
 
-As an additional example, there is an [extended configuration] that adds 3
-other languages to the model list, it can be tested with [some examples].
+As an additional example, there is an [extended configuration] that adds 4
+other languages to the model list, it can be tested with [some example commands].
 
 
 ## PII List
@@ -83,8 +83,8 @@ to create this list the following requirements must be met:
 [default configuration]: ../src/pii_extract_plg_transformers/resources/plugin-config.json
 [default file]: ../src/pii_extract_plg_transformers/resources/plugin-config.json
 
-[extended configuration]: example5.json
-[some examples]: examples.md
+[extended configuration]: example6.json
+[some example commands]: examples.md
 
 [cache directory]: ../README.md#cache-directory
 [token classification models in the Hugging Face Hub]: https://huggingface.co/models?pipeline_tag=token-classification

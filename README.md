@@ -63,6 +63,8 @@ models from the HuggingFace Hub will be downloaded and used (note that the
 configuration defines the total set of languages available for detection, but the
 plugin can also be initialized with a _subset_ of those languages).
 
+There are also [examples for other languages].
+
 The task created from the plugin is a standard [PII task] object, using the
 `pii_extract.build.task.MultiPiiTask` class definition. It will be called,
 as all PII task objects, with a `DocumentChunk` object containing the data to
@@ -130,4 +132,5 @@ The provided [Makefile] can be used to process the package:
 [pytest]: https://docs.pytest.org
 [default file]: src/pii_extract_plg_presidio/resources/plugin-config.json
 [configuration file]: doc/configuration.md
+[examples for other languages]: doc/examples.md
 [PII task]: https://github.com/piisa/pii-extract-base/blob/main/doc/task-implementation.md
