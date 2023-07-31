@@ -1,8 +1,8 @@
 # Examples
 
 The [default configuration] defines models for English and Spanish. There is
-also another [example configuration](example5.json) available that extends it
-to add French, German, Portuguese and Spanish. Its behaviour can be tested using
+also another [example configuration](example6.json) available that extends it
+to add French, German, Portuguese and Italian. Its behaviour can be tested using
 the `detect` script like this:
 
 
