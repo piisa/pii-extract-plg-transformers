@@ -15,7 +15,7 @@ The name of the plugin entry point is `piisa-detectors-transformers`
 
 ## Requirements
 
-The package neads
+The package needs
  * at least Python 3.8
  * the [pii-data] and the [pii-extract-base] base packages
  * the [Transformers] package
