@@ -9,7 +9,7 @@ from importlib.metadata import version
 
 from typing import Dict, Set
 
-from pii_data.helper.exception import ConfigException
+from pii_data.helper.exception import ConfigException, FileException
 
 
 ENV_HF_CACHE = "HUGGINGFACE_HUB_CACHE"
@@ -29,8 +29,11 @@ def hf_cachedir(cachedir: str = None):
     else:
         cachedir = Path(sys.prefix) / "var" / "piisa" / "hf-cache"
     # Create directory if neded
-    if not cachedir.is_dir():
-        cachedir.mkdir(parents=True)
+    try:
+        if not cachedir.is_dir():
+            cachedir.mkdir(parents=True)
+    except Exception as e:
+        raise FileException("cannot create HF cachedir '{}': {}", cachedir, e) from e
     # Push it to the environment
     environ[ENV_HF_CACHE] = str(cachedir)
     #print("CACHEDIR", str(cachedir))
