@@ -24,7 +24,7 @@ def test10_tasklist(monkeypatch):
     tasks = piic.build_tasks()
     tasks = list(tasks)
     assert len(tasks) == 1
-    assert str(tasks[0]) == "<Transformers wrapper #4>"
+    assert str(tasks[0]) == "<Transformers wrapper #6>"
 
 
 def test11_tasklist_err(monkeypatch):

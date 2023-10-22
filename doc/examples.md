@@ -1,9 +1,9 @@
 # Examples
 
-The [default configuration] defines models for English and Spanish. There is
-also another [example configuration](example6.json) available that extends it
-to add French, German, Portuguese and Italian. Its behaviour can be tested using
-the `detect` script like this:
+The [default configuration] defines a multilingual model, used for English,
+Spanish and French. There is also another [example configuration](example6.json)
+available that uses models for English, Spanish, French, German, Portuguese and
+Italian. Its behaviour can be tested using the `detect` script like this:
 
 
 * English:
@@ -31,7 +31,7 @@ the `detect` script like this:
         pii-extract-transformers-detect --config example6.json --lang pt --input-data "Ciao. Mi chiamo Iñigo Montoya. Tu hai ucciso mio padre a Toledo"
 
 
-Note that the models defined in the configuration are only examples; the
+Note that the models defined in this configuration are only examples; the
 Hugging Face Hub contains many models for NER Token Classification, and some
 of them might be more appropriate than others for PII detection tasks.
 

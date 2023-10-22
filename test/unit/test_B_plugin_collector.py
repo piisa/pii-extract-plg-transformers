@@ -50,11 +50,11 @@ def test30_task_pii(monkeypatch):
 
     tasks = _get_tasks()
     pii = tasks[0]["piid"]
-    assert len(pii) == 4
+    assert len(pii) == 6
 
     got_transformers_ent = [(p["extra"]["map"], p["lang"]) for p in pii]
     exp_transformers_ent = [
-        ("PER", "en"), ("PER", "es"),
-        ("LOC", "en"), ("LOC", "es")
+        ("PER", "en"), ("PER", "es"), ("PER", "fr"),
+        ("LOC", "en"), ("LOC", "es"), ("LOC", "fr")
     ]
     assert exp_transformers_ent == got_transformers_ent

@@ -111,7 +111,7 @@ def test30_error_lang(monkeypatch):
     patch_env(monkeypatch)
 
     # Gather tasks and build them. Use two languages, to preclude definition
-    # of a default language in the Presidio task
+    # of a default language in the task
     piic = get_task_collection()
     tasks = piic.build_tasks(["en", "es"])
     tasks = list(tasks)
