@@ -82,7 +82,9 @@ class TransformersTask(BaseMultiPiiTask):
                   len(pii), self.lang)
 
         # Define cache directory (_before_ importing the pipeline module)
-        hf_cachedir(cfg.get("cachedir"))
+        cachedir = cfg.get("cachedir")
+        if cachedir is not False:
+            hf_cachedir(cachedir)
 
         # Set up the Transformers pipeline engine
         try:

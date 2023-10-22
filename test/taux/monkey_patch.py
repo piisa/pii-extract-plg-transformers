@@ -2,12 +2,15 @@
 Some utils to monkey patch objects in the plugin
 """
 
+from os import environ
+
 from unittest.mock import Mock
 
 from typing import List, Dict
 
 from pii_extract.gather.collection.sources.defs import PII_EXTRACT_PLUGIN_ID
 from pii_extract_plg_transformers.plugin_loader import PiiExtractPluginLoader
+from pii_extract_plg_transformers.task.utils import ENV_HF_CACHE
 
 import pii_extract.gather.collection.sources.plugin as mod1
 import pii_extract_plg_transformers.task.pipeline as mod_pl
@@ -57,3 +60,12 @@ def patch_transformer_pipeline(monkeypatch, results: Dict,
     monkeypatch.setattr(mod_pl, 'ENGINE_CACHE', {})
 
     return pipeline_creator
+
+
+def patch_env(monkeypatch):
+    """
+    Monkey patch the environment variables
+    """
+    m = environ.get(ENV_HF_CACHE)
+    if m:
+        monkeypatch.delenv(ENV_HF_CACHE)

@@ -4,21 +4,21 @@
     "reuse_engine": true,
     "aggregation": "max",
     "models": [
-      {"lang_code": "en", "model": "dslim/bert-base-NER"},
-      {"lang_code": "es", "model": "MMG/xlm-roberta-large-ner-spanish",
-       "aggregation": "simple"}
+      {"lang_code": "en", "model": "Babelscape/wikineural-multilingual-ner"},
+      {"lang_code": "es", "model": "Babelscape/wikineural-multilingual-ner"},
+      {"lang_code": "fr", "model": "Babelscape/wikineural-multilingual-ner"}
     ]
   },
   "pii_list": [
     {
       "type": "PERSON",
-      "lang": ["en", "es"],
+      "lang": ["en", "es", "fr"],
       "method": "model",
       "extra": {"map": "PER"}
     },
     {
       "type": "LOCATION",
-      "lang": ["en", "es"],
+      "lang": ["en", "es", "fr"],
       "method": "model",
       "extra": {"map": "LOC"}
     }

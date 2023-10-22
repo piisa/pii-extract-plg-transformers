@@ -46,7 +46,9 @@ follows:
    used
 2. Else, if the configuration file for the package contains a `cachedir` field
    inside the `task_config` section, it will be used
-3. Else, a default is chosen: the `var/piisa/hf-cache` subfolder in
+3. If that field contains a `false` value, then **no** specific cache directory
+   will be defined (so the HuggingFace internal default will be used)
+4. Else, a default is chosen: the `var/piisa/hf-cache` subfolder in
    the virtualenv that holds the package
 
 
@@ -58,14 +60,7 @@ defines a plugin entry point. This plugin is automatically picked up by the
 scripts and classes in [pii-extract-base], and thus its functionality is exposed
 to them.
 
-Runtime behaviour is governed by a [configuration file], which sets up which
-models from the HuggingFace Hub will be downloaded and used (note that the
-configuration defines the total set of languages available for detection, but the
-plugin can also be initialized with a _subset_ of those languages).
-
-There are also [examples for other languages].
-
-The task created from the plugin is a standard [PII task] object, using the
+The task created by the plugin is a standard [PII task] object, using the
 `pii_extract.build.task.MultiPiiTask` class definition. It will be called,
 as all PII task objects, with a `DocumentChunk` object containing the data to
 analyze. The chunk **must** contain language specification in its metadata, so
@@ -74,8 +69,25 @@ built with *only one* language; in that case if the chunk does not contain
 a language specification, it will use that single language).
 
 
-## Auxiliary scripts
+## Configuration
 
+Runtime behaviour is governed by a [PIISA configuration file], which sets up which
+models from the HuggingFace Hub will be downloaded and used (note that the
+configuration defines the total set of languages available for detection, but
+it is also possible to initialize the plugin with a _subset_ of the configuration
+languages).
+
+The [default configuration file] defines detection for `Person` and `Location`
+PII instances for English, Spanish and French, using the [WikiNEuRal] multilingual
+NER model available in the Hugging Face Hub.
+
+However, a configuration file can
+also define a different model per language, and a different set of PII to detect
+for each model (and also different aggregation strategies to merge the model
+output). There is [another example available].
+
+
+## Auxiliary scripts
 
 ### Information
 
@@ -125,12 +137,10 @@ The provided [Makefile] can be used to process the package:
 [pii-data]: https://github.com/piisa/pii-data
 [pii-extract-base]: https://github.com/piisa/pii-extract-base
 [pii task descriptors]: https://github.com/piisa/pii-extract-base/tree/main/doc/task-descriptor.md
-[Presidio]: https://microsoft.github.io/presidio/
-[presidio-analyzer]: https://microsoft.github.io/presidio/analyzer/
-[customizing NLP models]: https://microsoft.github.io/presidio/analyzer/customizing_nlp_models/
 [Makefile]: Makefile
 [pytest]: https://docs.pytest.org
-[default file]: src/pii_extract_plg_presidio/resources/plugin-config.json
-[configuration file]: doc/configuration.md
-[examples for other languages]: doc/examples.md
+[default configuration file]: src/pii_extract_plg_transformers/resources/plugin-config.json
+[PIISA configuration file]: doc/configuration.md
+[another example available]: doc/examples.md
 [PII task]: https://github.com/piisa/pii-extract-base/blob/main/doc/task-implementation.md
+[WikiNEuRal]: https://huggingface.co/Babelscape/wikineural-multilingual-ner

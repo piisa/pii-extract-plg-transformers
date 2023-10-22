@@ -92,12 +92,16 @@ def create_pipelines(config: Dict, languages: Iterable[str] = None,
 
         # Look for it in cache
         if reuse:
-            key = f"{tkname}/{mdname}/{agg}"
+            # Build the cache key
+            key = f"{tkname}/{mdname}"
             if par:
                 key += '/' + '-'.join(f"{k}={par[k]}" for k in sorted(par))
-            engine = ENGINE_CACHE.get(key)
-            if engine:
-                pdict[lang] = engine
+
+            # Try to find it in cache
+            model = ENGINE_CACHE.get(key)
+            if model:
+                pdict[lang] = pipeline("ner", tokenizer=model[0], model=model[1],
+                                       aggregation_strategy=agg)
                 if logger:
                     logger(".... Reusing Transformers pipeline for %s: %s", lang, mdname)
                 continue
@@ -110,6 +114,6 @@ def create_pipelines(config: Dict, languages: Iterable[str] = None,
 
         # Save to cache
         if reuse:
-            ENGINE_CACHE[key] = pdict[lang]
+            ENGINE_CACHE[key] = tokenizer, model
 
     return pdict

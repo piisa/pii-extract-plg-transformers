@@ -7,7 +7,7 @@ import pytest
 from pii_data.helper.exception import ProcException
 from pii_extract.gather.collection import get_task_collection
 
-from taux.monkey_patch import patch_entry_points, patch_transformer_pipeline
+from taux.monkey_patch import patch_entry_points, patch_transformer_pipeline, patch_env
 from taux.taskproc import process_tasks
 
 
@@ -43,12 +43,13 @@ def test20_detect(monkeypatch):
     """
     Check detection
     """
-    # Patch the plugin entry point so that only the presidio plugin is detected
+    # Patch the plugin entry point so that only this plugin is detected
     patch_entry_points(monkeypatch)
-
-    # Patch the presidio analyzer function so that we don't actually call Presidio
+    # Patch the pipeline creation function so that we use a mock
     results = TESTCASES[0][1]
     patch_transformer_pipeline(monkeypatch, results, ["LOC", "PER"])
+    # Patch environment
+    patch_env(monkeypatch)
 
     # Gather tasks and build them
     piic = get_task_collection()
@@ -71,12 +72,13 @@ def test21_detect_default_lang(monkeypatch):
     """
     Check detection, with a default language
     """
-    # Patch the plugin entry point so that only the presidio plugin is detected
+    # Patch the plugin entry point so that only this plugin is detected
     patch_entry_points(monkeypatch)
-
-    # Patch the presidio analyzer function so that we don't actually call Presidio
+    # Patch the pipeline creation function so that we use a mock
     results = TESTCASES[0][1]
     patch_transformer_pipeline(monkeypatch, results, ["LOC", "PER"])
+    # Patch environment
+    patch_env(monkeypatch)
 
     # Gather tasks and build them
     piic = get_task_collection()
@@ -100,15 +102,16 @@ def test30_error_lang(monkeypatch):
     """
     Check error generation due to language not specified
     """
-    # Patch the plugin entry point so that only the presidio plugin is detected
+    # Patch the plugin entry point so that only this plugin is detected
     patch_entry_points(monkeypatch)
-
-    # Patch the presidio analyzer function so that we don't actually call Presidio
+    # Patch the pipeline creation function so that we use a mock
     results = TESTCASES[0][1]
     patch_transformer_pipeline(monkeypatch, results, ["LOC", "PER"])
+    # Patch environment
+    patch_env(monkeypatch)
 
     # Gather tasks and build them. Use two languages, to preclude definition
-    # of a default language in the Presidio task
+    # of a default language in the task
     piic = get_task_collection()
     tasks = piic.build_tasks(["en", "es"])
     tasks = list(tasks)
