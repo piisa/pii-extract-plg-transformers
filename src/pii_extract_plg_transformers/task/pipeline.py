@@ -7,13 +7,15 @@ try:
     from transformers import (
         AutoTokenizer,
         AutoModelForTokenClassification,
-        pipeline
+        pipeline,
+        set_seed
     )
 except ImportError:
     torch = None
     AutoTokenizer = None
     AutoModelForTokenClassification = None
     pipeline = object
+    set_seed = None
 
 from pii_data.helper.exception import ProcException
 from pii_extract.helper.logger import PiiLogger
@@ -43,6 +45,14 @@ def ner_labels(pl: pipeline) -> List[str]:
     lbl.discard("O")
     return lbl
 
+
+def set_random_seed(seed: int):
+    """
+    Set the random seed that will be used by the transformers library
+    """
+    if set_seed is None:
+        raise MissingDependency("transformers package not found")
+    set_seed(seed)
 
 
 def create_pipelines(config: Dict, languages: Iterable[str] = None,

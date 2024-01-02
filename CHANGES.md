@@ -1,5 +1,8 @@
 # ChangeLog
 
+## v. 0.1.3
+ * new config field to set the seed for random numbers
+
 ## v. 0.1.2
  * allow the "cachedir" config field to be set as `False`, which prevents
    setting the HF cache directory whatsoever
