@@ -28,9 +28,20 @@ def patch_entry_points(monkeypatch):
     mock_entry.name = "piisa-detectors-presidio [unit-test]"
     mock_entry.load = Mock(return_value=PiiExtractPluginLoader)
 
+    def side_effect(key=None, group=None):
+        if key == PII_EXTRACT_PLUGIN_ID or group == PII_EXTRACT_PLUGIN_ID:
+            return [mock_entry]
+        else:
+            return []
+
     mock_ep = Mock(return_value={PII_EXTRACT_PLUGIN_ID: [mock_entry]})
 
-    monkeypatch.setattr(mod1, 'entry_points', mock_ep)
+    mock_ep = Mock()
+    mock_ep.get = Mock(side_effect=side_effect)   # Python < 3.10
+    mock_ep.select = Mock(side_effect=side_effect)  # Python >= 3.10
+    mock_ep_cls = Mock(return_value=mock_ep)
+
+    monkeypatch.setattr(mod1, 'entry_points', mock_ep_cls)
 
 
 # ---------------------------------------------------------------------

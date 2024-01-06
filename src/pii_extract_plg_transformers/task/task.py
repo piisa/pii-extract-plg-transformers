@@ -88,7 +88,12 @@ class TransformersTask(BaseMultiPiiTask):
 
         # Set up the Transformers pipeline engine
         try:
-            from .pipeline import create_pipelines, ner_labels
+            from .pipeline import create_pipelines, ner_labels, set_random_seed
+
+            seed = cfg.get("seed")
+            if seed:
+                set_random_seed(seed)
+
             self.models = create_pipelines(cfg, languages=total_lang,
                                            logger=self._log)
 
