@@ -2,6 +2,7 @@
 
 ## v. 0.1.3
  * new config field to set the seed for random numbers
+ * fixed unit tests for Python 3.10
 
 ## v. 0.1.2
  * allow the "cachedir" config field to be set as `False`, which prevents
